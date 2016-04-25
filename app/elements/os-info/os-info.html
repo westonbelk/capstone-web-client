@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="os-info">
+    <template>
+        <h1 class="page-title" tabindex="-1">
+            <span id="user">user</span>
+            @
+            <span id="hostname">hostname</span>
+        </h1>
+
+        <div>
+            <b>Platform:</b>
+            <span id="platform">platform</span>
+        </div>
+        <div>
+            <b>OS Version: </b>
+            <span id="osVersion">0</span>
+        </div>
+        <div>
+            <b>Home Directory: </b>
+            <span id="homeDir">/</span>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "os-info"
+        });
+    </script>
+</dom-module>
+

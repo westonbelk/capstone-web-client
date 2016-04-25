@@ -1,0 +1,17 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="ws-status">
+    <template>
+        <paper-button raised onclick="connect()">Connect</paper-button>
+        <paper-button raised onclick="disconnect()">Disconnect</paper-button>
+        <paper-button noink id="status">Status</paper-button>
+    </template>
+
+    <script>
+    Polymer({
+    is: "ws-status"
+    });
+    </script>
+</dom-module>
