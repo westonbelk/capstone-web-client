@@ -142,16 +142,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <paper-material elevation="1">
                 <h1 class="page-title" tabindex="-1">Memory Usage</h1>
-                <canvas class="chart" id="memoryChart"></canvas>
+                <div class="flex-container">
+                  <div class="flex-chart">
+                    <canvas class="chart" id="memoryChart"></canvas>
+                  </div>
+                  <div class="flex-box">
+                    <ul>
+                      <li><b>Memory Used: </b><span id="memoryUsed"></span> GB</li>
+                      <li><b>Memory Free: </b><span id="memoryFree"></span> GB</li>
+                    </ul>
+                  </div>
+                </div>
               </paper-material>
 
               <paper-material elevation="1">
                 <h1 class="page-title" id="gpuName" tabindex="-1">GPU</h1>
 
                 <paper-material elevation="2">
-                  <b>Temperature: </b>
-                  <span id="gpuTemperature">0</span>
-                  <span> &#8451</span>
+                  <div>
+                    <b>Temperature: </b>
+                    <span id="gpuTemperature">0</span>
+                    <span> &#8451</span>
+                  </div>
+                  <div id="gpuPowerDrawDiv">
+                    <b>Power Draw: </b>
+                    <span id="gpuPowerDraw"></span>
+                    Watts
+                  </div>
+                  <div id="gpuFanSpeedDiv">
+                    <b>Fan Usage: </b>
+                    <span id="gpuFanSpeed"></span>%
+                  </div>
                 </paper-material>
 
                 <paper-material elevation="2" class="flex-container">

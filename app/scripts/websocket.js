@@ -19,15 +19,25 @@ function updateClient() {
     document.getElementById("jsonDebug").innerHTML = JSON.stringify(data, null, 2);
 
     // Memory Bindings
+    document.getElementById("memoryUsed").innerHTML = bytesToGB(data.memory.used);
+    document.getElementById("memoryFree").innerHTML = bytesToGB(data.memory.free);
     memoryChart.data.datasets[0].data[0] = bytesToGB(data.memory.used);
     memoryChart.data.datasets[0].data[1] = bytesToGB(data.memory.free);
     memoryChart.update();
 
     // GPU Bindings
     document.getElementById("gpuName").innerHTML = data.gpu.name;
+    if(data.gpu.fanSpeed == -1) {
+        document.getElementById("gpuPowerDrawDiv").style.display = "none";
+    }
+    if(data.gpu.powerDraw == -1) {
+        document.getElementById("gpuFanSpeedDiv").style.display = "none";
+    }
+    document.getElementById("gpuFanSpeed").innerHTML = data.gpu.fanSpeed;
+    document.getElementById("gpuPowerDraw").innerHTML = data.gpu.powerDraw;
     document.getElementById("gpuTemperature").innerHTML = data.gpu.temperature;
     document.getElementById("gpuMemoryUsed").innerHTML = MBToGB(data.gpu.used);
-        document.getElementById("gpuMemoryFree").innerHTML = MBToGB(data.gpu.free);
+    document.getElementById("gpuMemoryFree").innerHTML = MBToGB(data.gpu.free);
     gpuMemoryChart.data.datasets[0].data[0] = MBToGB(data.gpu.used);
     gpuMemoryChart.data.datasets[0].data[1] = MBToGB(data.gpu.free);
     gpuMemoryChart.update();
