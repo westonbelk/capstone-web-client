@@ -19,9 +19,18 @@ function updateClient() {
     document.getElementById("jsonDebug").innerHTML = JSON.stringify(data, null, 2);
 
     // Memory Bindings
-    memoryChart.data.datasets[0].data[0] = data.memory.used;
-    memoryChart.data.datasets[0].data[1] = data.memory.free;
+    memoryChart.data.datasets[0].data[0] = bytesToGB(data.memory.used);
+    memoryChart.data.datasets[0].data[1] = bytesToGB(data.memory.free);
     memoryChart.update();
+
+    // GPU Bindings
+    document.getElementById("gpuName").innerHTML = data.gpu.name;
+    document.getElementById("gpuTemperature").innerHTML = data.gpu.temperature;
+    document.getElementById("gpuMemoryUsed").innerHTML = MBToGB(data.gpu.used);
+        document.getElementById("gpuMemoryFree").innerHTML = MBToGB(data.gpu.free);
+    gpuMemoryChart.data.datasets[0].data[0] = MBToGB(data.gpu.used);
+    gpuMemoryChart.data.datasets[0].data[1] = MBToGB(data.gpu.free);
+    gpuMemoryChart.update();
 }
 
 function loadCharts() {
@@ -29,7 +38,7 @@ function loadCharts() {
     memoryChart = new Chart(ctx,{
         type: 'pie',
         data: {
-            labels: ["Used","Available",],
+            labels: ["Used [GB]","Available [GB]",],
             datasets: [
                 {
                     data: [0, 0],
@@ -42,10 +51,38 @@ function loadCharts() {
                         "#36A2EB"
                     ]
                 }]},
-        options: {}
+        options: {legend: false, tooltips: false}
+    });
+    var ctx = document.getElementById("gpuMemoryChart");
+    gpuMemoryChart = new Chart(ctx,{
+        type: 'pie',
+        data: {
+            labels: ["Used [GB]","Available [GB]",],
+            datasets: [
+                {
+                    data: [0, 0],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB"
+                    ]
+                }]},
+        options: {legend: false, tooltips: false}
     });
 }
 
+function bytesToGB(bytes) {
+    var gb = bytes / 1024 / 1024 / 1024;
+    return Math.round((gb + 0.00001) * 100) / 100
+}
+
+function MBToGB(bytes) {
+    var gb = bytes / 1024;
+    return Math.round((gb + 0.00001) * 100) / 100
+}
 
 /* * * * * * * * */
 /* Server Stuff */

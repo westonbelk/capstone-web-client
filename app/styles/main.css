@@ -8,7 +8,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 body {
-  background: #fafafa;
+  background: #f0f0f0;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
@@ -47,4 +47,60 @@ body {
 #status {
   background-color: red;
   color: white;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flex-box {
+  min-width: 40%;
+  max-width: 40%;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.flex-box ul {
+  align-self: center;
+  height: 50%;
+  list-style-type: none;
+  list-style: none;
+  padding: 0;
+  }
+
+.flex-chart {
+  min-width: 60%;
+  max-width: 60%;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+@media screen and (max-width: 600px)
+{
+    .flex-container {
+      display: block;
+    }
+
+    .flex-box ul {
+      padding: 0;
+      text-align: center;
+    }
+
+    .flex-box, .flex-chart, .flex-box ul{
+      margin: 0;
+      min-width: 100%;
+      max-width: 100%;
+    } 
+
+    .hide-mobile {
+        display: none;
+    }
+    
+    .static-mobile {
+        position: static;
+    }
 }

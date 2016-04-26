@@ -123,7 +123,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     @
                     <span id="hostname">hostname</span>
                 </h1>
+              </paper-material>
 
+              <paper-material elevation="1">
                 <div>
                     <b>Platform:</b>
                     <span id="platform">platform</span>
@@ -140,7 +142,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <paper-material elevation="1">
                 <h1 class="page-title" tabindex="-1">Memory Usage</h1>
-                <canvas id="memoryChart"></canvas>
+                <canvas class="chart" id="memoryChart"></canvas>
+              </paper-material>
+
+              <paper-material elevation="1">
+                <h1 class="page-title" id="gpuName" tabindex="-1">GPU</h1>
+
+                <paper-material elevation="2">
+                  <b>Temperature: </b>
+                  <span id="gpuTemperature">0</span>
+                  <span> &#8451</span>
+                </paper-material>
+
+                <paper-material elevation="2" class="flex-container">
+                  <div class="flex-chart">
+                    <canvas class="chart" id="gpuMemoryChart"></canvas>
+                  </div>
+                  <div class="flex-box">
+                    <ul>
+                      <li><b>Memory Used: </b><span id="gpuMemoryUsed"></span> GB</li>
+                      <li><b>Memory Free: </b><span id="gpuMemoryFree"></span> GB</li>
+                    </ul>
+                  </div>
+                </paper-material>
               </paper-material>
 
             </section>
