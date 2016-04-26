@@ -17,6 +17,33 @@ function updateClient() {
 
     // Debug Bindings
     document.getElementById("jsonDebug").innerHTML = JSON.stringify(data, null, 2);
+
+    // Memory Bindings
+    memoryChart.data.datasets[0].data[0] = data.memory.used;
+    memoryChart.data.datasets[0].data[1] = data.memory.free;
+    memoryChart.update();
+}
+
+function loadCharts() {
+    var ctx = document.getElementById("memoryChart");
+    memoryChart = new Chart(ctx,{
+        type: 'pie',
+        data: {
+            labels: ["Used","Available",],
+            datasets: [
+                {
+                    data: [0, 0],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB"
+                    ]
+                }]},
+        options: {}
+    });
 }
 
 
@@ -25,7 +52,12 @@ function updateClient() {
 /* * * * * * * */
 var ws;
 var address = "ws://localhost:3000";
-connect();
+function start() {
+    console.log("started");
+    loadCharts();
+    connect();
+}
+
 
 function connect() {
     if(!ws || ws.readyState !== WebSocket.OPEN) {
