@@ -53,26 +53,28 @@ function updateClient() {
     memory_info.used = bytesToGB(data.memory.used);
     memory_info.free = bytesToGB(data.memory.free);
     
-
+    
+    // GPU Bindings
     // If there is no gpu in the system then hide the gpu card
     if (data.hasOwnProperty('gpu')) {
         document.getElementById('gpu').style.display = "";
+
+        document.getElementById("gpu_name").innerHTML = data.gpu.name;
+        var gpu_info = document.getElementById("gpu_info");
+        gpu_info.temperature = data.gpu.temperature;
+        gpu_info.power_draw = data.gpu.powerDraw;
+        gpu_info.fan_usage = data.gpu.fanSpeed;
+
+        var gpu_memory_info = document.getElementById("gpu_memory_info");
+        gpu_memory_info.label = "Memory";
+        gpu_memory_info.used = MBToGB(data.gpu.used);
+        gpu_memory_info.free = MBToGB(data.gpu.free);
     }
     else {
         document.getElementById('gpu').style.display = "none";
     }
 
-    // GPU Bindings
-    document.getElementById("gpu_name").innerHTML = data.gpu.name;
-    var gpu_info = document.getElementById("gpu_info");
-    gpu_info.temperature = data.gpu.temperature;
-    gpu_info.power_draw = data.gpu.powerDraw;
-    gpu_info.fan_usage = data.gpu.fanSpeed;
-
-    var gpu_memory_info = document.getElementById("gpu_memory_info");
-    gpu_memory_info.label = "Memory";
-    gpu_memory_info.used = MBToGB(data.gpu.used);
-    gpu_memory_info.free = MBToGB(data.gpu.free);
+    
 
     // Partition Bindings
     if(numPartitions != data.storage.partitions.length) {
