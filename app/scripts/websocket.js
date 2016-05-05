@@ -19,11 +19,12 @@ function updateClient() {
     /*if(data.hasOwnProperty('os')) {
         console.log("has os");
     }*/
-    document.getElementById("user").innerHTML = data.os.user;
-    document.getElementById("hostname").innerHTML = data.os.hostname;
+    var user_info = document.getElementById("user_info")
+    user_info.user = data.os.user;
+    user_info.hostname = data.os.hostname;
 
     // Update system information
-    var system_info = document.getElementById("system-info");
+    var system_info = document.getElementById("system_info");
     system_info.platform = data.os.platform;
     system_info.os_version = data.os.version;
     system_info.home_dir = data.os.home;
@@ -31,27 +32,44 @@ function updateClient() {
     // Debug Bindings
     document.getElementById("debug_status").json = JSON.stringify(data, null, 2);
 
+    // CPU Bindings
+    // Clean up CPU name for intel processors (have not tested amd yet)
+    var cpu_name = data.cpu.name;
+    if(data.cpu.vendor == "GenuineIntel") {
+        var cpu_name = data.cpu.name.split("@")[0].replace("CPU","").replace("(TM)", "").replace("(R)","").trim();
+    }
+    document.getElementById("cpu_name").innerHTML = cpu_name;
+    var cpu_info = document.getElementById("cpu_info");
+    cpu_info.uptime = data.cpu.uptime;
+    cpu_info.clock_speed = data.cpu.freq;
+    cpu_info.temperature = data.cpu.temperature;
+    cpu_info.voltage = data.cpu.voltage;
+    cpu_info.fan_usage = data.cpu.fanSpeed;
+
+
     // Memory Bindings
-    memory_info = document.getElementById("memory_info");
+    var memory_info = document.getElementById("memory_info");
     memory_info.label = "Memory";
     memory_info.used = bytesToGB(data.memory.used);
     memory_info.free = bytesToGB(data.memory.free);
     
-    
+
+    // If there is no gpu in the system then hide the gpu card
+    if (data.hasOwnProperty('gpu')) {
+        document.getElementById('gpu').style.display = "";
+    }
+    else {
+        document.getElementById('gpu').style.display = "none";
+    }
 
     // GPU Bindings
-    // TODO: CLEAN UP GPU BINDINGS
-    document.getElementById("gpuName").innerHTML = data.gpu.name;
-    if(data.gpu.fanSpeed == -1) {
-        document.getElementById("gpuPowerDrawDiv").style.display = "none";
-    }
-    if(data.gpu.powerDraw == -1) {
-        document.getElementById("gpuFanSpeedDiv").style.display = "none";
-    }
-    document.getElementById("gpuFanSpeed").innerHTML = data.gpu.fanSpeed;
-    document.getElementById("gpuPowerDraw").innerHTML = data.gpu.powerDraw;
+    document.getElementById("gpu_name").innerHTML = data.gpu.name;
+    var gpu_info = document.getElementById("gpu_info");
+    gpu_info.temperature = data.gpu.temperature;
+    gpu_info.power_draw = data.gpu.powerDraw;
+    gpu_info.fan_usage = data.gpu.fanSpeed;
 
-    gpu_memory_info = document.getElementById("gpu_memory_info");
+    var gpu_memory_info = document.getElementById("gpu_memory_info");
     gpu_memory_info.label = "Memory";
     gpu_memory_info.used = MBToGB(data.gpu.used);
     gpu_memory_info.free = MBToGB(data.gpu.free);
@@ -61,7 +79,7 @@ function updateClient() {
         console.log("Num partitions changed");
         numPartitions = data.storage.partitions.length;
         partitions = [];
-        document.getElementById("diskinfo").innerHTML = "";
+        document.getElementById("disk_info").innerHTML = "";
         createPartitions();
     }
     updatePartitions();
@@ -78,7 +96,7 @@ function createPartitions() {
         var p = document.createElement("partition-element");
 
         // Add the card and partition information to the DOM
-        document.getElementById("diskinfo").appendChild(container);
+        document.getElementById("disk_info").appendChild(container);
         container.appendChild(p);
 
         // Add the parititon to the global partitions list

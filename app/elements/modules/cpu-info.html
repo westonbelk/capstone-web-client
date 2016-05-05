@@ -1,0 +1,81 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="cpu-info">
+    <template>
+        <div>
+            <b>Clock Speed:</b> {{clock_speed}}
+        </div>
+        <div id="uptime">
+            <b>Uptime: </b>{{check_uptime(uptime)}} GHz
+        </div>
+        <div id="temperature">
+            <b>temperature: </b>{{check_temperature(temperature)}} &#8451
+        </div>
+        <div id="voltage">
+            <b>voltage: </b>{{check_voltage(voltage)}} Volts
+        </div>
+        <div id="fan_usage">
+            <b>fan_usage: </b>{{check_fan_usage(fan_usage)}}
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "cpu-info",
+            properties: {
+                clock_speed: Number,
+                uptime: String,
+                temperature: Number,
+                voltage: Number,
+                fan_usage: Number
+            },
+
+            check_uptime: function(uptime) {
+                return formatTime(uptime);
+            },
+
+            check_temperature: function(temperature) {
+                if(temperature == -1) {
+                    this.$.temperature.style.display = "none";
+                }
+                else {
+                    this.$.temperature.style.display = "";
+                }
+                return temperature;
+            },
+
+            check_voltage: function(voltage) {
+                if(voltage == -1) {
+                    this.$.voltage.style.display = "none";
+                }
+                else {
+                    this.$.voltage.style.display = "";
+                }
+                return voltage;
+            },
+
+            check_fan_usage: function(fan_usage) {
+                if(fan_usage == -1) {
+                    this.$.fan_usage.style.display = "none";
+                }
+                else {
+                    this.$.fan_usage.style.display = "";
+                }
+                return fan_usage;
+            }
+        });
+
+        function formatTime(seconds) {
+            var mm = Math.floor(seconds / 60);
+            var ss = seconds % 60;
+
+            if (ss<10)
+            {
+                ss = "0" + ss;
+            }
+
+            return mm + ":" + ss;
+        }
+    </script>
+</dom-module>

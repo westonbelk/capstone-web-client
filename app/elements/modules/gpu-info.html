@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="gpu-info">
+    <template>
+      <div id="temperature">
+        <b>Temperature: </b>{{check_temperature(temperature)}} &#8451
+      </div>
+      <div id="power_draw">
+        <b>Power Draw: </b>{{check_power_draw(power_draw)}} Watts
+      </div>
+      <div id="fan_usage">
+        <b>Fan Usage: </b>{{check_fan_usage(fan_usage)}}%
+      </div>        
+    </template>
+
+    <script>
+      Polymer({
+        is: "gpu-info",
+
+        properties: {
+          temperature: Number,
+          power_draw: Number,
+          fan_usage: Number
+        },
+
+        check_fan_usage: function(fan_usage) {
+          if(fan_usage == -1) {
+            this.$.fan_usage.style.display = "none";
+          }
+          else {
+            this.$.fan_usage.style.display = "";
+          }
+          return fan_usage;
+        },
+
+        check_temperature: function(temperature) {
+          if(temperature == -1) {
+            this.$.temperature.style.display = "none";
+          }
+          else {
+            this.$.temperature.style.display = "";
+          }
+          return temperature;
+        },
+
+        check_power_draw: function(power_draw) {
+          if(power_draw == -1) {
+            this.$.power_draw.style.display = "none";
+          }
+          else {
+            this.$.power_draw.style.display = "";
+          }
+          return power_draw;
+        }
+
+      });
+    </script>
+    
+</dom-module>
+

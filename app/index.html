@@ -119,14 +119,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <paper-material elevation="1">
                 <h1 class="page-title" tabindex="-1">
-                    <span id="user">user</span>
-                    @
-                    <span id="hostname">hostname</span>
+                  <user-info id="user_info"></user-info>
                 </h1>
               </paper-material>
 
               <paper-material elevation="1">
-                <system-info id="system-info"></system-info>
+                <system-info id="system_info"></system-info>
+              </paper-material>
+
+              <paper-material elevation="1">
+                <h1 class="page-title" id="cpu_name" tabindex="-1">Processor</h1>
+                <cpu-info id="cpu_info"></cpu-info>
               </paper-material>
 
               <paper-material elevation="1">
@@ -134,24 +137,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <chart-element id="memory_info"></chart-element>
               </paper-material>
 
-              <paper-material elevation="1">
-                <h1 class="page-title" id="gpuName" tabindex="-1">GPU</h1>
+              <paper-material elevation="1" id="gpu">
+                <h1 class="page-title" id="gpu_name" tabindex="-1">GPU</h1>
 
                 <paper-material elevation="2">
-                  <div>
-                    <b>Temperature: </b>
-                    <span id="gpuTemperature">0</span>
-                    <span> &#8451</span>
-                  </div>
-                  <div id="gpuPowerDrawDiv">
-                    <b>Power Draw: </b>
-                    <span id="gpuPowerDraw"></span>
-                    Watts
-                  </div>
-                  <div id="gpuFanSpeedDiv">
-                    <b>Fan Usage: </b>
-                    <span id="gpuFanSpeed"></span>%
-                  </div>
+                  <gpu-info id="gpu_info"></gpu-info>
                 </paper-material>
 
                 <paper-material elevation="2">
@@ -161,7 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <paper-material elevation="1">
                 <h1 class="page-title" tabindex="-1">Disks</h1>
-                <div id="diskinfo"></div>
+                <div id="disk_info"></div>
               </paper-material>
 
             </section>
