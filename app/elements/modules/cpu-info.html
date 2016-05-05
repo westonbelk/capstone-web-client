@@ -4,10 +4,10 @@
 <dom-module id="cpu-info">
     <template>
         <div>
-            <b>Clock Speed:</b> {{clock_speed}}
+            <b>Clock Speed:</b> {{clock_speed}} GHz
         </div>
         <div id="uptime">
-            <b>Uptime: </b>{{check_uptime(uptime)}} GHz
+            <b>Uptime: </b>{{check_uptime(uptime)}}
         </div>
         <div id="temperature">
             <b>temperature: </b>{{check_temperature(temperature)}} &#8451
@@ -56,7 +56,7 @@
             },
 
             check_fan_usage: function(fan_usage) {
-                if(fan_usage == -1) {
+                if(fan_usage == -1 || fan_usage.length == 0) {
                     this.$.fan_usage.style.display = "none";
                 }
                 else {

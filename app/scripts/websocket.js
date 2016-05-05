@@ -8,6 +8,7 @@ var address = "ws://localhost:3000";
 
 function start() {
     console.log("started");
+    document.getElementById("address_input").value = address;
     connect();
 }
 
@@ -158,6 +159,14 @@ function disconnect() {
     setConnectedStatus(false);
 }
 
+function reconnect() {
+    if(connected) {
+        disconnect();
+    }
+    address = document.getElementById("address_input").value;
+    connect();
+}
+
 function setConnectedStatus(isConnected) {
     if(isConnected) {
         connected = true;
@@ -168,12 +177,6 @@ function setConnectedStatus(isConnected) {
         document.getElementById('status').style.backgroundColor = "red";
 
     }
-}
-
-function connectToNew(newAddress) {
-    disconnect();
-    address = newAddress;
-    connect();
 }
 
 window.onbeforeunload = function() {

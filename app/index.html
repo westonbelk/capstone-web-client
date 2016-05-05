@@ -164,6 +164,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
               <paper-material elevation="1">
+                <div>
+                  <paper-input id="address_input" label="Server Address"></paper-input>
+                </div>
+                <div>
+                  <paper-button raised onclick="reconnect()">Update Address</paper-button>
+                </div>
+              </paper-material>
+
+              <paper-material elevation="1">
                 <debug-status id="debug_status"></debug-status>
               </paper-material>
             </section>
