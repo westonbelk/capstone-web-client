@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+<dom-module id="partition-element">
+    <template>
+        <div>
+            <b>Name: </b>{{name}}
+        </div>
+        <div>
+            <b>Used: </b>{{used}} GB
+        </div>
+        <div>
+           <b>Free: </b>{{free}} GB
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "partition-element",
+            properties: {
+            	free: Number,
+                used: Number,
+                name: String
+            }
+        });
+    </script>
+</dom-module>
+

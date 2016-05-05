@@ -4,12 +4,15 @@
 <dom-module id="debug-status">
     <template>
         <h1 class="page-title" tabindex="-1">Debug</h1>
-        <pre id="jsonDebug">{}</pre>
+        <pre>{{json}}</pre>
     </template>
 
     <script>
         Polymer({
-            is: "debug-status"
+            is: "debug-status",
+            properties: {
+            	json: String
+            }
         });
     </script>
 </dom-module>

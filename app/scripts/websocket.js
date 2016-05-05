@@ -1,5 +1,16 @@
 var data;
 var connected;
+var numPartitions = 0;
+var partitions = [];
+var system_info = document.getElementById("system-info");
+var ws;
+var address = "ws://localhost:3000";
+
+function start() {
+    console.log("started");
+    loadCharts();
+    connect();
+}
 
 /* * /
  Update Client
@@ -11,19 +22,22 @@ function updateClient() {
     }*/
     document.getElementById("user").innerHTML = data.os.user;
     document.getElementById("hostname").innerHTML = data.os.hostname;
-    document.getElementById("platform").innerHTML = data.os.platform;
-    document.getElementById("osVersion").innerHTML = data.os.version;
-    document.getElementById("homeDir").innerHTML = data.os.home;
+
+    // Update system information
+    var system_info = document.getElementById("system-info");
+    system_info.platform = data.os.platform;
+    system_info.os_version = data.os.version;
+    system_info.home_dir = data.os.home;
 
     // Debug Bindings
-    document.getElementById("jsonDebug").innerHTML = JSON.stringify(data, null, 2);
+    document.getElementById("debug_status").json = JSON.stringify(data, null, 2);
 
     // Memory Bindings
-    document.getElementById("memoryUsed").innerHTML = bytesToGB(data.memory.used);
-    document.getElementById("memoryFree").innerHTML = bytesToGB(data.memory.free);
-    memoryChart.data.datasets[0].data[0] = bytesToGB(data.memory.used);
-    memoryChart.data.datasets[0].data[1] = bytesToGB(data.memory.free);
-    memoryChart.update();
+    google_info = document.getElementById("google-info");
+    google_info.used = bytesToGB(data.memory.used);
+    google_info.free = bytesToGB(data.memory.free);
+    
+    
 
     // GPU Bindings
     document.getElementById("gpuName").innerHTML = data.gpu.name;
@@ -41,28 +55,50 @@ function updateClient() {
     gpuMemoryChart.data.datasets[0].data[0] = MBToGB(data.gpu.used);
     gpuMemoryChart.data.datasets[0].data[1] = MBToGB(data.gpu.free);
     gpuMemoryChart.update();
+
+    // Partition Bindings
+    if(numPartitions != data.storage.partitions.length) {
+        console.log("Num partitions changed");
+        numPartitions = data.storage.partitions.length;
+        partitions = [];
+        document.getElementById("diskinfo").innerHTML = "";
+        createPartitions();
+    }
+    updatePartitions();
+
+    document.dispatchEvent(new CustomEvent("UpdateCompleteEvent",{}));
+}
+
+function createPartitions() {
+    // Create empty partition elements and add them to the DOM
+    for(i=0; i<numPartitions; i++) {
+        // Create the card for the disk
+        var container = document.createElement("paper-material");
+        container.elevation = "2";
+
+        // Create the blank element for the paritition
+        var p = document.createElement("partition-element");
+
+        // Add the card and partition information to the DOM
+        document.getElementById("diskinfo").appendChild(container);
+        container.appendChild(p);
+
+        // Add the parititon to the global partitions list
+        partitions.push(p);
+    }
+}
+
+function updatePartitions() {
+    for(i=0; i<numPartitions; i++) {
+        var partitionData = data.storage.partitions[i];
+        var element = partitions[i];
+        element.free = bytesToGB(partitionData.free);
+        element.used = bytesToGB(partitionData.used);
+        element.name = partitionData.name;
+    }
 }
 
 function loadCharts() {
-    var ctx = document.getElementById("memoryChart");
-    memoryChart = new Chart(ctx,{
-        type: 'pie',
-        data: {
-            labels: ["Used [GB]","Available [GB]",],
-            datasets: [
-                {
-                    data: [0, 0],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB"
-                    ]
-                }]},
-        options: {legend: false, tooltips: false}
-    });
     var ctx = document.getElementById("gpuMemoryChart");
     gpuMemoryChart = new Chart(ctx,{
         type: 'pie',
@@ -97,13 +133,6 @@ function MBToGB(bytes) {
 /* * * * * * * * */
 /* Server Stuff */
 /* * * * * * * */
-var ws;
-var address = "ws://localhost:3000";
-function start() {
-    console.log("started");
-    loadCharts();
-    connect();
-}
 
 
 function connect() {

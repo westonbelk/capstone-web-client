@@ -126,33 +126,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
               <paper-material elevation="1">
-                <div>
-                    <b>Platform:</b>
-                    <span id="platform">platform</span>
-                </div>
-                <div>
-                    <b>OS Version: </b>
-                    <span id="osVersion">0</span>
-                </div>
-                <div>
-                    <b>Home Directory: </b>
-                    <span id="homeDir">/</span>
-                </div>
+                <system-info id="system-info"></system-info>
               </paper-material>
 
               <paper-material elevation="1">
-                <h1 class="page-title" tabindex="-1">Memory Usage</h1>
-                <div class="flex-container">
-                  <div class="flex-chart">
-                    <canvas class="chart" id="memoryChart"></canvas>
-                  </div>
-                  <div class="flex-box">
-                    <ul>
-                      <li><b>Memory Used: </b><span id="memoryUsed"></span> GB</li>
-                      <li><b>Memory Free: </b><span id="memoryFree"></span> GB</li>
-                    </ul>
-                  </div>
-                </div>
+                <google-info id="google-info"></google-info>
               </paper-material>
 
               <paper-material elevation="1">
@@ -188,6 +166,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-material>
               </paper-material>
 
+              <paper-material elevation="1">
+                <h1 class="page-title" tabindex="-1">Disks</h1>
+                <div id="diskinfo"></div>
+              </paper-material>
+
             </section>
 
 
@@ -198,7 +181,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
               <paper-material elevation="1">
-                <debug-status></debug-status>
+                <debug-status id="debug_status"></debug-status>
               </paper-material>
             </section>
 
@@ -211,7 +194,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
-  <script src="scripts/Chart.bundle.js"></script>
   <script src="scripts/websocket.js"></script>
   <script type="text/javascript">
     document.addEventListener('WebComponentsReady', function() {

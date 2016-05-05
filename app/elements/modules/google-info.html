@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/google-chart/google-chart.html">
+
+<dom-module id="google-info">
+    <template>
+        <h1 class="page-title" tabindex="-1">google Usage</h1>
+        <div class="flex-container">
+          <div class="flex-chart">
+            <google-chart
+              id="guage"
+              type="pie"
+              options='{"title": "Memory"}'
+              cols='[{"label":"Mth", "type":"string"}, {"label":"Days", "type":"number"}]'
+              rows='[["Jan", 31],["Feb", 28],["{{used}}", 36]]'
+            </google-chart>
+          </div>
+          <div class="flex-box">
+            <ul>
+              <li><b>google Used: </b>{{used}} GB</li>
+              <li><b>google Free: </b>{{free}} GB</li>
+            </ul>
+          </div>
+        </div>
+    </template>
+
+    <script src="../../scripts/Chart.bundle.js"></script>
+    <script>
+      Polymer({
+        is: "google-info",
+
+        properties: {
+          used: String,
+          free: Number
+        }
+      });
+
+      
+    </script>
+</dom-module>
+

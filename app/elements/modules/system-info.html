@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="system-info">
+    <template>
+    	<div>
+        	<b>Platform:</b> {{platform}}
+        </div>
+        <div>
+            <b>OS Version: </b>{{os_version}}
+        </div>
+        <div>
+            <b>Home Directory: </b>{{home_dir}}
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "system-info",
+            properties: {
+            	platform: String,
+                os_version: String,
+                home_dir: String
+            }
+        });
+    </script>
+</dom-module>
+
