@@ -37,7 +37,7 @@ function updateClient() {
     // Clean up CPU name for intel processors (have not tested amd yet)
     var cpu_name = data.cpu.name;
     if(data.cpu.vendor == "GenuineIntel") {
-        var cpu_name = data.cpu.name.split("@")[0].replace("CPU","").replace("(TM)", "").replace("(R)","").trim();
+        var cpu_name = data.cpu.name.split("@")[0].replace(/CPU/g,"").replace(/[(TM)]/g, "").replace(/[(R)]/g,"").trim();
     }
     document.getElementById("cpu_name").innerHTML = cpu_name;
     var cpu_info = document.getElementById("cpu_info");
