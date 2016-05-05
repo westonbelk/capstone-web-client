@@ -130,7 +130,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
               <paper-material elevation="1">
-                <google-info id="google-info"></google-info>
+                <h1 class="page-title" tabindex="-1">Memory</h1>
+                <chart-element id="memory_info"></chart-element>
               </paper-material>
 
               <paper-material elevation="1">
@@ -153,16 +154,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </div>
                 </paper-material>
 
-                <paper-material elevation="2" class="flex-container">
-                  <div class="flex-chart">
-                    <canvas class="chart" id="gpuMemoryChart"></canvas>
-                  </div>
-                  <div class="flex-box">
-                    <ul>
-                      <li><b>Memory Used: </b><span id="gpuMemoryUsed"></span> GB</li>
-                      <li><b>Memory Free: </b><span id="gpuMemoryFree"></span> GB</li>
-                    </ul>
-                  </div>
+                <paper-material elevation="2">
+                  <chart-element id="gpu_memory_info"></chart-element>
                 </paper-material>
               </paper-material>
 

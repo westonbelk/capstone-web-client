@@ -8,7 +8,6 @@ var address = "ws://localhost:3000";
 
 function start() {
     console.log("started");
-    loadCharts();
     connect();
 }
 
@@ -33,13 +32,15 @@ function updateClient() {
     document.getElementById("debug_status").json = JSON.stringify(data, null, 2);
 
     // Memory Bindings
-    google_info = document.getElementById("google-info");
-    google_info.used = bytesToGB(data.memory.used);
-    google_info.free = bytesToGB(data.memory.free);
+    memory_info = document.getElementById("memory_info");
+    memory_info.label = "Memory";
+    memory_info.used = bytesToGB(data.memory.used);
+    memory_info.free = bytesToGB(data.memory.free);
     
     
 
     // GPU Bindings
+    // TODO: CLEAN UP GPU BINDINGS
     document.getElementById("gpuName").innerHTML = data.gpu.name;
     if(data.gpu.fanSpeed == -1) {
         document.getElementById("gpuPowerDrawDiv").style.display = "none";
@@ -49,12 +50,11 @@ function updateClient() {
     }
     document.getElementById("gpuFanSpeed").innerHTML = data.gpu.fanSpeed;
     document.getElementById("gpuPowerDraw").innerHTML = data.gpu.powerDraw;
-    document.getElementById("gpuTemperature").innerHTML = data.gpu.temperature;
-    document.getElementById("gpuMemoryUsed").innerHTML = MBToGB(data.gpu.used);
-    document.getElementById("gpuMemoryFree").innerHTML = MBToGB(data.gpu.free);
-    gpuMemoryChart.data.datasets[0].data[0] = MBToGB(data.gpu.used);
-    gpuMemoryChart.data.datasets[0].data[1] = MBToGB(data.gpu.free);
-    gpuMemoryChart.update();
+
+    gpu_memory_info = document.getElementById("gpu_memory_info");
+    gpu_memory_info.label = "Memory";
+    gpu_memory_info.used = MBToGB(data.gpu.used);
+    gpu_memory_info.free = MBToGB(data.gpu.free);
 
     // Partition Bindings
     if(numPartitions != data.storage.partitions.length) {
@@ -65,8 +65,6 @@ function updateClient() {
         createPartitions();
     }
     updatePartitions();
-
-    document.dispatchEvent(new CustomEvent("UpdateCompleteEvent",{}));
 }
 
 function createPartitions() {
@@ -98,36 +96,14 @@ function updatePartitions() {
     }
 }
 
-function loadCharts() {
-    var ctx = document.getElementById("gpuMemoryChart");
-    gpuMemoryChart = new Chart(ctx,{
-        type: 'pie',
-        data: {
-            labels: ["Used [GB]","Available [GB]",],
-            datasets: [
-                {
-                    data: [0, 0],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB"
-                    ]
-                }]},
-        options: {legend: false, tooltips: false}
-    });
-}
-
 function bytesToGB(bytes) {
     var gb = bytes / 1024 / 1024 / 1024;
-    return Math.round((gb + 0.00001) * 100) / 100
+    return gb.toFixed(2);
 }
 
 function MBToGB(bytes) {
     var gb = bytes / 1024;
-    return Math.round((gb + 0.00001) * 100) / 100
+    return gb.toFixed(2);
 }
 
 /* * * * * * * * */

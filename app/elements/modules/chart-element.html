@@ -1,0 +1,120 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<style type="text/css">
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .flex-box {
+    min-width: 40%;
+    max-width: 40%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+  }
+
+  .flex-box ul {
+    align-self: center;
+    height: 50%;
+    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    }
+
+  .flex-chart {
+    min-width: 60%;
+    max-width: 60%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+  }
+
+  @media screen and (max-width: 600px) {
+    .flex-container {
+      display: block;
+    }
+
+    .flex-box ul {
+      padding: 0;
+      text-align: center;
+    }
+
+    .flex-box, .flex-chart, .flex-box ul{
+      margin: 0;
+      min-width: 100%;
+      max-width: 100%;
+    } 
+
+    .hide-mobile {
+        display: none;
+    }
+    
+    .static-mobile {
+        position: static;
+    }
+  }
+</style>
+
+<dom-module id="chart-element">
+    <template>
+        <div class="flex-container">
+          <div class="flex-chart">
+            <canvas id="this_chart"></canvas>
+          </div>
+          <div class="flex-box">
+            <ul>
+              <li><b>{{label}} Used: </b>{{used}} GB</li>
+              <li><b>{{label}} Free: </b>{{free}} GB</li>
+            </ul>
+          </div>
+        </div>
+    </template>
+
+    <script src="../../scripts/Chart.bundle.js"></script>
+    <script>
+      Polymer({
+        is: "chart-element",
+
+        properties: {
+          used: Number,
+          free: Number,
+          label: String ,
+          data: {
+            type: Boolean,
+            computed: 'updateData(used, free)'
+          },
+          chart: Object
+        },
+
+        attached: function() {
+          var ctx = this.$.this_chart;
+          var data = JSON.parse(JSON.stringify (
+          {
+            labels: ["Used [GB]","Available [GB]",],
+            datasets: [{
+                data: [0, 0],
+                backgroundColor: ["#FF6384", "#36A2EB"],
+                hoverBackgroundColor: ["#FF6384", "#36A2EB"]
+            }]
+          }));
+          this.chart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {legend: false, tooltips: false}
+          });
+        },
+
+        updateData: function(used, free) {
+          this.chart.data.datasets[0].data = [used, free];
+          this.chart.update();
+          return true;
+        }
+
+      });
+    </script>
+    
+</dom-module>
+
