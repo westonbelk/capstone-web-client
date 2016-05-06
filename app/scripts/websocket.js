@@ -170,10 +170,12 @@ function reconnect() {
 function setConnectedStatus(isConnected) {
     if(isConnected) {
         connected = true;
+        document.getElementById('status_toolbar').connected = true;
         document.getElementById('status').style.backgroundColor = "green";
     }
     else {
         connected = false;
+        document.getElementById('status_toolbar').connected = false;
         document.getElementById('status').style.backgroundColor = "red";
 
     }

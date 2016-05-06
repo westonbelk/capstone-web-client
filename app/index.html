@@ -21,13 +21,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
-  <meta name="theme-color" content="#5D4037">
+  <meta name="theme-color" content="#00796B">
 
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
 
   <!-- Tile color for Win8 -->
-  <meta name="msapplication-TileColor" content="#795548">
+  <meta name="msapplication-TileColor" content="#009688">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -98,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="space"></span>
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh"></paper-icon-button>
+          <paper-icon-button icon="refresh" onclick="reconnect()"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
 
           <!-- Application name -->
@@ -111,6 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="bottom-title">Remote System Monitor</div>
           </div>
         </paper-toolbar>
+        <status-toolbar id="status_toolbar"></status-toolbar>
 
         <!-- Main Content -->
         <div class="content">

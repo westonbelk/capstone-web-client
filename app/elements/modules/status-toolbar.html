@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="status-toolbar">
+    <style type="text/css">
+        paper-toolbar {
+            background: var(--paper-red-400);
+        }
+    </style>
+    <template>
+        <paper-toolbar id="toolbar">
+            <div>Disconnected from host</div>
+        </paper-toolbar>
+        <span style="display: none">{{check_status(connected)}}</span>
+    </template>
+
+    <script>
+        Polymer({
+            is: "status-toolbar",
+            properties: {
+            	connected: Boolean
+            },
+
+            check_status: function(connected) {
+                if(connected) {
+                    this.$.toolbar.style.display = "none";
+                    console.log("hidden");
+                }
+                else {
+                    this.$.toolbar.style.display = "";
+                }
+                return true;
+            }
+        });
+    </script>
+</dom-module>
