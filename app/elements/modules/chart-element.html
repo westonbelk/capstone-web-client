@@ -76,6 +76,7 @@
 
     <script src="../../scripts/Chart.bundle.js"></script>
     <script>
+      
       Polymer({
         is: "chart-element",
 
@@ -91,14 +92,15 @@
         },
 
         attached: function() {
+          console.log(this.customStyle['--custom-color']);
           var ctx = this.$.this_chart;
           var data = JSON.parse(JSON.stringify (
           {
             labels: ["Used [GB]","Available [GB]",],
             datasets: [{
                 data: [0, 0],
-                backgroundColor: ["#E91E63", "#607D8B"],
-                hoverBackgroundColor: ["#FF6384", "#36A2EB"]
+                backgroundColor: ["#795548", "#EEEEEE"],
+                hoverBackgroundColor: ["#795548", "#EEEEEE"]
             }]
           }));
           this.chart = new Chart(ctx, {
