@@ -136,15 +136,12 @@ function connect() {
     if(!ws || ws.readyState !== WebSocket.OPEN) {
         ws = new WebSocket(address);
         ws.onerror = function (e) {
-            console.log("Error ignored");
             ws.close();
         };
         ws.onopen = function () {
             setConnectedStatus(true);
-            ws.send("init");
         };
         ws.onmessage = function (evt) {
-            console.log("Message received");
             data = JSON.parse(evt.data);
             updateClient();
         };
@@ -184,15 +181,3 @@ function setConnectedStatus(isConnected) {
 window.onbeforeunload = function() {
     disconnect();
 };
-
-setInterval(
-    function() {
-        if(connected){
-            ws.send("");
-        }
-        else {
-
-        }
-    }
-    ,1000
-);
