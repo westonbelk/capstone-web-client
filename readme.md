@@ -1,3 +1,3 @@
 Remote Server Monitor Web Client
 
-* Material Design :)
+Uses the Polymer web framework. Material Design.
